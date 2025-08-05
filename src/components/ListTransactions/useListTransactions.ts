@@ -1,4 +1,4 @@
-import { type ChangeEvent } from 'react'
+import { useMemo, type ChangeEvent } from 'react'
 
 import type { IFinancialTransaction } from '../../models'
 
@@ -6,7 +6,7 @@ import { useFinancialTransactions } from '../../hooks'
 
 export function useListTransactions() {
   const useFinancial = useFinancialTransactions()
-  const transactionsSelected = new Map<string, IFinancialTransaction>()
+  const transactionsSelected = useMemo(() => new Map<string, IFinancialTransaction>(), [])
 
   const onClickCheckbox = ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (!target.checked) {
