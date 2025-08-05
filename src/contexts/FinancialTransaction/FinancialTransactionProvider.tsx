@@ -15,7 +15,6 @@ export function FinancialTransactionProvider({ children }: PropsWithChildren) {
 
   const fetchTransactions = async () => {
     const data = await service.getAll()
-    console.log(data)
     setTransactions(data)
   }
 
