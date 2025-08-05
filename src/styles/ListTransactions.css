@@ -1,30 +1,105 @@
-/* .transaction {
+.list-transactions .actions {
+  background-color: var(--tertiary);
+  padding: 5px 5px;
+  border-radius: 4px 4px 0 0;
   display: flex;
   flex-direction: row;
   column-gap: 10px;
-  color: var(--color);
-  border-bottom: 1px solid black;
-  padding: 10px;
-} */
+}
 
-.list-transactions {
+.list-transactions .actions button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  width: 30px;
+  height: 30px;
+  color: var(--color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+
+.list-transactions .actions button:hover {
+  background-color: var(--primary);
+}
+
+.list-transactions .actions button:active {
+  background-color: var(--secondary);
+}
+
+.list-transactions .actions button i {
+  transform: translateX(1px);
+}
+
+.list-transactions-table {
   border-collapse: collapse;
 }
-.list-transactions td, .list-transactions th {
+
+.list-transactions-table th, .list-transactions-table tfoot td {
+  background-color: var(--tertiary);
+  color: var(--color-light);
+  font-weight: 700;
+}
+
+.list-transactions-table td, .list-transactions-table th {
   border: 1px solid var(--color);
-  padding: 10px;
-}
-/* 
-.list-transactions td, .list-transactions th {
-  border-bottom: 1px solid black;
-} */
-
-.list-transactions .description {
-  text-align: left;
-  width: 300px;
+  padding: 6px; 
 }
 
-.list-transactions .value {
-  text-align: right;
-  width: 100px;
+.list-transactions-table tr {
+  color: var(--color-light);
+  background-color: #7A84FF;
+  font-weight: 500;
+}
+
+.list-transactions-table tr:nth-child(2n) {
+  background-color: #7a85ffaf;
+}
+
+.list-transactions-table input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: #fff;
+  border: 0.125rem solid #ccc;
+  border-radius: 0.25rem;
+}
+
+.list-transactions-table input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center;
+  transition: 0.125s transform ease-in-out;
+  box-shadow: inset 1rem 1rem #fff;
+}
+
+.list-transactions-table input[type="checkbox"]:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.list-transactions-table input[type="checkbox"]:checked::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.list-transactions-table input[type="checkbox"]:disabled {
+  opacity: 0.25;
+}
+
+.list-transactions-table input[type="checkbox"]:focus {
+  border-color: var(--primary);
+}
+
+.list-transactions-table input[type="checkbox"]:focus + label {
+  color: var(--primary);
 }
