@@ -1,4 +1,6 @@
 @import url("./App.css");
+@import url("./ListTransactions.css");
+@import url("./NewTransaction.css");
 :root {
   font-family: Arial, system-ui, Avenir, Helvetica, Inter, sans-serif;
   font-size: 16px;
@@ -36,14 +38,6 @@ body {
   display: flex;
   min-width: 500px;
   min-height: 100vh;
-}
-
-#root {
-  margin: 0;
-  flex: 1;
-  min-width: 500px;
-  display: flex;
-  flex-direction: row;
 }
 
 .rotate-180deg {

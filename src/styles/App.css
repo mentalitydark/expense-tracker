@@ -1,0 +1,8 @@
+#root {
+  margin: 0;
+  flex: 1;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
