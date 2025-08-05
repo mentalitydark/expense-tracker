@@ -1,7 +1,14 @@
+import { ListTransactions, NewTransaction } from "./components";
+
 export function App() {
   return (
     <>
-      <h2>a</h2>
+      <header>
+        <NewTransaction />
+      </header>
+      <div>
+        <ListTransactions />
+      </div>
     </>
   )
 }
