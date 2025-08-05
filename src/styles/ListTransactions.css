@@ -1,0 +1,30 @@
+/* .transaction {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  color: var(--color);
+  border-bottom: 1px solid black;
+  padding: 10px;
+} */
+
+.list-transactions {
+  border-collapse: collapse;
+}
+.list-transactions td, .list-transactions th {
+  border: 1px solid var(--color);
+  padding: 10px;
+}
+/* 
+.list-transactions td, .list-transactions th {
+  border-bottom: 1px solid black;
+} */
+
+.list-transactions .description {
+  text-align: left;
+  width: 300px;
+}
+
+.list-transactions .value {
+  text-align: right;
+  width: 100px;
+}
