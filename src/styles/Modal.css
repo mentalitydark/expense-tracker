@@ -1,0 +1,76 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000022;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal > .dialog {
+  background-color: var(--background);
+  border-radius: 10px;
+  width: 400px;
+}
+
+.modal > .dialog > .header {
+  padding: 15px 10px;
+  border-bottom: 1px solid var(--background-dark);
+  background-color: #FFF;
+  border-radius: 6px 6px 0 0;
+}
+
+.modal > .dialog > .header .title {
+  font-size: 1.4em;
+}
+
+.modal > .dialog > .content {
+  padding: 15px 10px;
+  background-color: #FFF;
+  min-height: 100px;
+}
+
+.modal > .dialog > .footer {
+  padding: 15px 10px;
+  border-top: 1px solid var(--background-dark);
+  background-color: #FFF;
+  border-radius: 0 0 6px 6px;
+}
+
+.modal > .dialog .action {
+  margin: 0px 5px;
+  font-size: 1em;
+  background-color: var(--primary);
+  color: var(--color-light);
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 3px;
+}
+
+.modal > .dialog .action.danger {
+  background-color: transparent;
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+.modal > .dialog .action:hover {
+  background-color: var(--secondary);
+}
+
+.modal > .dialog .action:active {
+  background-color: var(--tertiary);
+}
+
+.modal > .dialog .action.danger:hover {
+  background-color: transparent;
+  filter: brightness(1.2);
+}
+
+.modal > .dialog .action.danger:active {
+  background-color: transparent;
+  filter: brightness(0.7);
+}

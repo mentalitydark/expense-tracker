@@ -1,3 +1,4 @@
+import { NewTransaction } from '../NewTransaction'
 import Table from '../Table'
 
 import { useListTransactions } from './useListTransactions'
@@ -22,6 +23,7 @@ export function ListTransactions() {
   return (
     <div className='list-transactions'>
       <div className='actions'>
+        <NewTransaction />
         <button onClick={removeTransactionsSelected}><i className='fa-solid fa-trash' /></button>
       </div>
       <Table.Root>

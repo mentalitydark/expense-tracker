@@ -7,7 +7,7 @@
   column-gap: 10px;
 }
 
-.list-transactions .actions button {
+.list-transactions .actions > button {
   background-color: transparent;
   border: none;
   outline: none;
@@ -22,15 +22,15 @@
   transition: all 0.2s;
 }
 
-.list-transactions .actions button:hover {
+.list-transactions .actions > button:hover {
   background-color: var(--primary);
 }
 
-.list-transactions .actions button:active {
+.list-transactions .actions > button:active {
   background-color: var(--secondary);
 }
 
-.list-transactions .actions button i {
+.list-transactions .actions > button i {
   transform: translateX(1px);
 }
 
