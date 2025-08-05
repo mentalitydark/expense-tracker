@@ -1,5 +1,6 @@
 @import url("./App.css");
 @import url("./ListTransactions.css");
+@import url("./Modal.css");
 @import url("./NewTransaction.css");
 :root {
   font-family: Arial, system-ui, Avenir, Helvetica, Inter, sans-serif;
