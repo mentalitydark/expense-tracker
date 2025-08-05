@@ -1,3 +1,5 @@
+import Table from '../Table'
+
 import { useListTransactions } from './useListTransactions'
 
 function formatNumber(value: number): string {
@@ -10,35 +12,46 @@ function formatNumber(value: number): string {
   })
 }
 
+function formatDate(value: Date): string {
+  return value.toLocaleDateString('pt-br')
+}
+
 export function ListTransactions() {
-  const { data } = useListTransactions()
+  const { data, onClickCheckbox, removeTransactionsSelected } = useListTransactions()
 
   return (
-    <table className='list-transactions' cellSpacing={0}>
-      <thead>
-        <th>Descrição</th>
-        <th>Valor</th>
-      </thead>
-      <tbody>
-        {
-          data.map((transaction) => (
-            <tr>
-              <td className='description'>{transaction.description}</td>
-              <td className='value'>{formatNumber(transaction.value)}</td>
-            </tr>
-          ))
-        }
-      </tbody>
-      <tfoot>
-        <tr>
-          <td className='description'>Totais</td>
-          <td className='value'>
-            {
-              formatNumber(data.reduce((prev, cur) => prev + cur.value, 0.00))
-            }
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+    <div className='list-transactions'>
+      <div className='actions'>
+        <button onClick={removeTransactionsSelected}><i className='fa-solid fa-trash' /></button>
+      </div>
+      <Table.Root>
+        <Table.Head columns={[
+          { name: '' },
+          { name: 'Descrição' },
+          { name: 'Data' },
+          { name: 'Valor' }
+        ]} />
+        <Table.Body>
+          {
+            data.map(transaction => (
+              <Table.Row key={transaction.id}>
+                <Table.Cell align='center'><input id={transaction.id} type='checkbox' onChange={(event) => onClickCheckbox(event)}/></Table.Cell>
+                <Table.Cell>{transaction.description}</Table.Cell>
+                <Table.Cell align='center'>{formatDate(transaction.date)}</Table.Cell>
+                <Table.Cell align='right'>{formatNumber(transaction.value)}</Table.Cell>
+              </Table.Row>
+            ))
+          }
+        </Table.Body>
+        <Table.Foot>
+          <Table.Row>
+            <Table.Cell width={40} />
+            <Table.Cell align='right' width={300}>Total</Table.Cell>
+            <Table.Cell width={101} />
+            <Table.Cell align='right' width={150}>{formatNumber(data.reduce((prev, cur) => prev + cur.value, 0.00))}</Table.Cell>
+          </Table.Row>
+        </Table.Foot>
+      </Table.Root>
+    </div>
   )
 }
