@@ -1,8 +1,12 @@
 import type { PropsWithChildren } from 'react'
 
-export function TableRow({ children }: PropsWithChildren) {
+interface ITableRowProps {
+  visible?: boolean
+}
+
+export function TableRow({ children, visible }: PropsWithChildren<ITableRowProps>) {
   return (
-    <tr>
+    <tr className={`${visible ? 'visible' : ''}`}>
       { children }
     </tr>
   )
