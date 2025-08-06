@@ -13,11 +13,23 @@ export class FinancialTransactionMemoryRepository implements IFinancialTransacti
   }
 
   public async save(transaction: IFinancialTransaction): Promise<void> {
-    FinancialTransactionMemoryRepository.transactions.set(transaction.id, transaction)
+    try {
+      transaction.createdAt = new Date()
+      FinancialTransactionMemoryRepository.transactions.set(transaction.id, transaction)
+    } catch (e) {
+      transaction.createdAt = undefined
+      throw e
+    }
   }
 
   public async update(transaction: IFinancialTransaction): Promise<void> {
-    FinancialTransactionMemoryRepository.transactions.set(transaction.id, transaction)
+    try {
+      transaction.updatedAt = new Date()
+      FinancialTransactionMemoryRepository.transactions.set(transaction.id, transaction)
+    } catch (e) {
+      transaction.updatedAt = undefined
+      throw e
+    }
   }
 
   public async delete(transaction: IFinancialTransaction): Promise<boolean> {

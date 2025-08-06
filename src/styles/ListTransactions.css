@@ -46,13 +46,28 @@
 
 .list-transactions-table td, .list-transactions-table th {
   border: 1px solid var(--color);
-  padding: 6px; 
+  padding: 6px;
+}
+
+.list-transactions-table td.positive {
+  color: var(--positive);
+  font-weight: 500;
+}
+
+.list-transactions-table td.negative {
+  color: var(--error);
+  font-weight: 500;
 }
 
 .list-transactions-table tr {
   color: var(--color-light);
   background-color: #7A84FF;
   font-weight: 500;
+}
+
+.list-transactions-table tr.visible {
+  text-decoration: line-through;
+  background-color: var(--gray)!important;
 }
 
 .list-transactions-table tr:nth-child(2n) {

@@ -29,9 +29,17 @@ export function useListTransactions() {
     transactionsSelected.clear()
   }
 
+  const changeVisibilityTransactionsSelected = () => {
+    transactionsSelected.forEach((transaction) => {
+      transaction.visible = !transaction.visible
+      useFinancial.updateTransaction(transaction)
+    })
+  }
+
   return {
     data: useFinancial.transactions,
     onClickCheckbox,
-    removeTransactionsSelected
+    removeTransactionsSelected,
+    changeVisibilityTransactionsSelected
   }
 }
