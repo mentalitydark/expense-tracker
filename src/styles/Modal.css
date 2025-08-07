@@ -8,12 +8,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
+  min-width: 500px;
 }
 
 .modal > .dialog {
   background-color: var(--background);
   border-radius: 10px;
   width: 400px;
+  z-index: 3;
 }
 
 .modal > .dialog > .header {
