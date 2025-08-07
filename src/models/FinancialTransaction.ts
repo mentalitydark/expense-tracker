@@ -11,6 +11,16 @@ export interface IFinancialTransaction {
   visible: boolean
   createdAt?: Date
   updatedAt?: Date
+  JSON: {
+    id: string
+    description: string
+    value: number
+    date: number
+    type: FinancialTransactionType
+    visible: boolean
+    created_at?: number
+    updated_at?: number
+  }
 }
 
 interface IFinancialTransactionProps {
@@ -18,6 +28,9 @@ interface IFinancialTransactionProps {
   description: string
   value: number
   date?: Date
+  visible?: boolean
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export class FinancialTransaction implements IFinancialTransaction {
@@ -30,12 +43,16 @@ export class FinancialTransaction implements IFinancialTransaction {
   private _createdAt?: Date
   private _updatedAt?: Date
 
-  public constructor({ id, description, value, date }: IFinancialTransactionProps) {
+  public constructor({ id, description, value, date, visible = true, createdAt, updatedAt }: IFinancialTransactionProps) {
     this._id = id ?? crypto.randomUUID()
     this._description = description
     this._value = new TransactionValue(value)
     this._date = date ?? new Date()
     this._type = value < 0 ? FinancialTransactionType.EXPENSES : FinancialTransactionType.REVENUE
+
+    this._visible = visible
+    this._createdAt = createdAt
+    this._updatedAt = updatedAt
   }
 
   public get id() { return this._id }
@@ -46,6 +63,18 @@ export class FinancialTransaction implements IFinancialTransaction {
   public get visible() { return this._visible }
   public get createdAt() { return this._createdAt }
   public get updatedAt() { return this._updatedAt }
+  public get JSON() {
+    return {
+      id: this.id,
+      description: this.description,
+      value: this.value,
+      date: this.date.getTime(),
+      type: this.type,
+      visible: this.visible,
+      created_at: this.createdAt?.getTime(),
+      updated_at: this.updatedAt?.getTime(),
+    }
+  }
 
   public set id(value: string) { this._id = value }
   public set description(value: string) { this._description = value }
