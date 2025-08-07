@@ -12,12 +12,12 @@ export class FinancialTransactionService {
     return this.repository.findById(id)
   }
 
-  public async add(transaction: IFinancialTransaction): Promise<void> {
-    await this.repository.save(transaction)
+  public async add(transaction: IFinancialTransaction): Promise<IFinancialTransaction> {
+    return await this.repository.save(transaction)
   }
 
-  public async update(transaction: IFinancialTransaction): Promise<void> {
-    await this.repository.update(transaction)
+  public async update(transaction: IFinancialTransaction): Promise<IFinancialTransaction> {
+    return await this.repository.update(transaction)
   }
 
   public async remove(transaction: IFinancialTransaction): Promise<boolean> {

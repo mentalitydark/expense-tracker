@@ -3,6 +3,8 @@ import type { IFinancialTransactionRepository } from '../IFinancialTransactionRe
 
 export class FinancialTransactionMemoryRepository implements IFinancialTransactionRepository {
   private static transactions: Map<IFinancialTransaction['id'], IFinancialTransaction> = new Map()
+
+  public async init() {}
   
   public async findAll(): Promise<IFinancialTransaction[]> {
     return Array.from(FinancialTransactionMemoryRepository.transactions.values())
@@ -12,7 +14,7 @@ export class FinancialTransactionMemoryRepository implements IFinancialTransacti
     return FinancialTransactionMemoryRepository.transactions.get(id)
   }
 
-  public async save(transaction: IFinancialTransaction): Promise<void> {
+  public async save(transaction: IFinancialTransaction): Promise<IFinancialTransaction> {
     try {
       transaction.createdAt = new Date()
       FinancialTransactionMemoryRepository.transactions.set(transaction.id, transaction)
@@ -20,9 +22,11 @@ export class FinancialTransactionMemoryRepository implements IFinancialTransacti
       transaction.createdAt = undefined
       throw e
     }
+
+    return transaction
   }
 
-  public async update(transaction: IFinancialTransaction): Promise<void> {
+  public async update(transaction: IFinancialTransaction): Promise<IFinancialTransaction> {
     try {
       transaction.updatedAt = new Date()
       FinancialTransactionMemoryRepository.transactions.set(transaction.id, transaction)
@@ -30,6 +34,8 @@ export class FinancialTransactionMemoryRepository implements IFinancialTransacti
       transaction.updatedAt = undefined
       throw e
     }
+
+    return transaction
   }
 
   public async delete(transaction: IFinancialTransaction): Promise<boolean> {
