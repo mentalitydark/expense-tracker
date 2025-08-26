@@ -1,4 +1,5 @@
 import { ListTransactions } from "./components";
+import { SelectTransactionsProvider } from "./contexts";
 
 export function App() {
   return (
@@ -7,7 +8,9 @@ export function App() {
         <h1>Controle de Gastos</h1>
       </header>
       <div>
-        <ListTransactions />
+        <SelectTransactionsProvider>
+          <ListTransactions />
+        </SelectTransactionsProvider>
       </div>
     </>
   )

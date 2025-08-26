@@ -1,5 +1,5 @@
-import { EnterEvent } from '../../utils'
-import Modal from '../Modal'
+import { EnterEvent } from '../../../../utils'
+import Modal from '../../../Modal'
 
 import { useNewTransaction } from './useNewTransaction'
 

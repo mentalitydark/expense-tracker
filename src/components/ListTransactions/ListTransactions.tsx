@@ -1,6 +1,6 @@
-import { NewTransaction } from '../NewTransaction'
 import Table from '../Table'
 
+import { ChangeVisibility, NewTransaction, RemoveTransactions } from './Operations'
 import { useListTransactions } from './useListTransactions'
 
 function formatNumber(value: number): string {
@@ -20,30 +20,38 @@ function formatDate(value: Date): string {
 export function ListTransactions() {
   const {
     data,
-    onClickCheckbox,
-    removeTransactionsSelected,
-    changeVisibilityTransactionsSelected
+    onSelectOne,
+    allSelected,
+    onSelectAll,
+    selectedIds
   } = useListTransactions()
 
   return (
     <div className='list-transactions'>
       <div className='actions'>
         <NewTransaction />
-        <button onClick={removeTransactionsSelected}><i className='fa-solid fa-trash' /></button>
-        <button onClick={changeVisibilityTransactionsSelected}><i className='fa-solid fa-eye-slash' /></button>
+        <RemoveTransactions />
+        <ChangeVisibility />
       </div>
       <Table.Root>
         <Table.Head columns={[
-          { name: '' },
-          { name: 'Descrição' },
-          { name: 'Data' },
-          { name: 'Valor' }
+            { name: <input type='checkbox' checked={allSelected} onChange={e => onSelectAll(e.target.checked)} /> },
+            { name: 'Descrição' },
+            { name: 'Data' },
+            { name: 'Valor' }
         ]} />
         <Table.Body>
           {
             data.map(transaction => (
               <Table.Row key={transaction.id} visible={!transaction.visible}>
-                <Table.Cell align='center'><input id={transaction.id} type='checkbox' onChange={(event) => onClickCheckbox(event)}/></Table.Cell>
+                <Table.Cell align='center'>
+                  <input
+                    id={transaction.id}
+                    type='checkbox'
+                    onChange={onSelectOne}
+                    checked={selectedIds.includes(transaction.id)}
+                  />
+                </Table.Cell>
                 <Table.Cell>{transaction.description}</Table.Cell>
                 <Table.Cell align='center'>{formatDate(transaction.date)}</Table.Cell>
                 <Table.Cell align='right' negative={transaction.value < 0}>{formatNumber(transaction.value)}</Table.Cell>

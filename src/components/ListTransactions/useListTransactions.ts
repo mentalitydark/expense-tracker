@@ -1,45 +1,36 @@
-import { useMemo, type ChangeEvent } from 'react'
+import { type ChangeEvent } from 'react'
 
-import type { IFinancialTransaction } from '../../models'
-
-import { useFinancialTransactions } from '../../hooks'
+import { useFinancialTransactions, useSelectTransactions } from '../../hooks'
 
 export function useListTransactions() {
   const useFinancial = useFinancialTransactions()
-  const transactionsSelected = useMemo(() => new Map<string, IFinancialTransaction>(), [])
+  const useSelected = useSelectTransactions()
 
-  const onClickCheckbox = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const onSelectOne = ({ target }: ChangeEvent<HTMLInputElement>) => {
     if (!target.checked) {
-      transactionsSelected.delete(target.id)
+      useSelected.remove(target.id)
       return
     }
 
-    const transaction = useFinancial.transactions.find(t => t.id === target.id)
-    
-    if (transaction) {
-      transactionsSelected.set(transaction.id, transaction)
+    useSelected.add(target.id)
+  }
+
+  const allSelected = useFinancial.transactions.length > 0 && useSelected.values.length === useFinancial.transactions.length
+
+  const onSelectAll = (checked: boolean) => {
+    if (checked) {
+      const allIds = useFinancial.transactions.map(t => t.id)
+      useSelected.defineValues(allIds)
+    } else {
+      useSelected.clear()
     }
-  }
-
-  const removeTransactionsSelected = () => {
-    transactionsSelected.forEach((transaction) => {
-      useFinancial.removeTransaction(transaction)
-    })
-
-    transactionsSelected.clear()
-  }
-
-  const changeVisibilityTransactionsSelected = () => {
-    transactionsSelected.forEach((transaction) => {
-      transaction.visible = !transaction.visible
-      useFinancial.updateTransaction(transaction)
-    })
   }
 
   return {
     data: useFinancial.transactions,
-    onClickCheckbox,
-    removeTransactionsSelected,
-    changeVisibilityTransactionsSelected
+    onSelectOne,
+    allSelected,
+    onSelectAll,
+    selectedIds: useSelected.values
   }
 }
