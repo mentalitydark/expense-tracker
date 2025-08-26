@@ -4,18 +4,26 @@ export function RemoveTransactions() {
   const useFinancial = useFinancialTransactions()
   const useSelected = useSelectTransactions()
 
-  const action = () => {
-    useSelected.values.forEach((id) => {
-      const transaction = useFinancial.transactions.find(t => t.id === id)
+  const action = async () => {
+    try {
+      const promises: Promise<void>[] = []
 
-      if (!transaction) {
-        return
-      }
-      
-      useFinancial.removeTransaction(transaction)
-    })
+      useSelected.values.forEach((id) => {
+        const transaction = useFinancial.getById(id)
 
-    useSelected.clear()
+        if (!transaction) {
+          return
+        }
+        
+        promises.push(useFinancial.removeTransaction(transaction))
+      })
+
+      await Promise.all(promises)
+
+      useSelected.clear()
+    } catch (e) {
+      console.error(e)
+    }
   }
   
   const enabled = useSelected.values.length >= 1
