@@ -22,11 +22,15 @@
   transition: all 0.2s;
 }
 
-.list-transactions .actions > button:hover {
+.list-transactions .actions > button:disabled {
+  color: var(--gray);
+}
+
+.list-transactions .actions > button:not(:disabled):hover {
   background-color: var(--primary);
 }
 
-.list-transactions .actions > button:active {
+.list-transactions .actions > button:not(:disabled):active {
   background-color: var(--secondary);
 }
 
