@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
+
 import { TableRow } from './TableRow'
 
 interface ITableHeadProps {
-  columns: {name: string, colspan?: number}[]
+  columns: {name: ReactNode, colspan?: number}[]
 }
 
 export function TableHead({ columns }: ITableHeadProps) {
@@ -10,7 +12,7 @@ export function TableHead({ columns }: ITableHeadProps) {
       <TableRow>
         {
           columns.map((column) => (
-            <th key={`${column.name}_${column.colspan}`} colSpan={column.colspan}>{column.name}</th>
+            <th key={`${crypto.randomUUID()}`} colSpan={column.colspan}>{column.name}</th>
           ))
         }
       </TableRow>
