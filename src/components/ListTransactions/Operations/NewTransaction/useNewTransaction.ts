@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
-import { useFinancialTransactions, useOpen } from '../../hooks'
-import { FinancialTransaction } from '../../models'
+import { useFinancialTransactions, useOpen } from '../../../../hooks'
+import { FinancialTransaction } from '../../../../models'
 
 export function useNewTransaction() {
   const useFinancial = useFinancialTransactions()
