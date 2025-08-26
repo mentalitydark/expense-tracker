@@ -19,6 +19,10 @@ export function FinancialTransactionProvider({ children }: PropsWithChildren) {
     setTransactions(data)
   }
 
+  const getById = (id: IFinancialTransaction['id']) => {
+    return transactions.find(t => t.id === id)
+  }
+
   const addTransaction = async (t: IFinancialTransaction) => {
     await service.add(t)
     await fetchTransactions()
@@ -53,6 +57,7 @@ export function FinancialTransactionProvider({ children }: PropsWithChildren) {
     <FinancialTransactionContext.Provider value={{
       transactions,
       fetchTransactions,
+      getById,
       addTransaction,
       updateTransaction,
       removeTransaction
