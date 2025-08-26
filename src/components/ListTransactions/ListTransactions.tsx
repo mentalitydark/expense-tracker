@@ -1,6 +1,6 @@
 import Table from '../Table'
 
-import { ChangeVisibility, NewTransaction, RemoveTransactions } from './Operations'
+import { ChangeVisibility, EditTransaction, NewTransaction, RemoveTransactions } from './Operations'
 import { useListTransactions } from './useListTransactions'
 
 function formatNumber(value: number): string {
@@ -30,6 +30,7 @@ export function ListTransactions() {
     <div className='list-transactions'>
       <div className='actions'>
         <NewTransaction />
+        <EditTransaction />
         <RemoveTransactions />
         <ChangeVisibility />
       </div>

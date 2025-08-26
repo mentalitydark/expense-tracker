@@ -12,7 +12,7 @@ export function useNewTransaction() {
     value: useRef<HTMLInputElement>(null)
   }
 
-  const submit = () => {
+  const submit = async () => {
     if (!refs.description.current || !refs.value.current) {
       return
     }
@@ -23,7 +23,7 @@ export function useNewTransaction() {
         value: Number(refs.value.current.value)
       })
 
-      useFinancial.addTransaction(transaction)
+      await useFinancial.addTransaction(transaction)
 
       refs.description.current.value = ''
       refs.value.current.value = ''
