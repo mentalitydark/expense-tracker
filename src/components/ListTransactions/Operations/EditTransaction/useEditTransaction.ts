@@ -54,7 +54,14 @@ export function useEditTransaction() {
     }
 
     if (fields.description.current) fields.description.current.value = transaction.description
-    if (fields.value.current) fields.value.current.value = String(transaction.value)
+    if (fields.value.current) {
+      fields.value.current.value = transaction.value.toLocaleString('pt-br', {
+        currency: 'BRL',
+        minimumFractionDigits: 2, maximumFractionDigits: 2
+      })
+
+      fields.value.current.dispatchEvent(new Event('change'))
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_useOpen.opened, enabled])
 

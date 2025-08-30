@@ -20,7 +20,7 @@ export function useNewTransaction() {
     try {
       const transaction = new FinancialTransaction({
         description: refs.description.current.value,
-        value: Number(refs.value.current.value)
+        value: Number(refs.value.current.dataset.rawValue)/100
       })
 
       await useFinancial.addTransaction(transaction)
