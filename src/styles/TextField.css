@@ -1,0 +1,43 @@
+.container-textfield {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.container-textfield .label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transform: translate(5px, 10px) scale(1);
+  background-color: #FFF;
+  padding: 0px 5px;
+  transition: all 0.2s;
+  cursor: text;
+  user-select: none;
+}
+
+.container-textfield .input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--background-dark);
+  outline: none;
+}
+
+.container-textfield .input:hover {
+  border: 2px solid var(--background-dark);
+}
+
+.container-textfield .input:focus {
+  border: 2px solid var(--primary);
+}
+
+.container-textfield .input:focus ~ .label {
+  transform: translate(0px, -5px) scale(.8);
+  color: var(--primary);
+}
+
+.container-textfield .input:not([value=""]) ~ .label {
+  transform: translate(0px, -5px) scale(.8);
+}
