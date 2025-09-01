@@ -20,7 +20,6 @@ module.exports = {
     "semi": [ "error", "never" ],
     "quotes": [ "error", "single" ],
     "jsx-quotes": [ "error", "prefer-single" ],
-    "indent": [ "error", 2, { "SwitchCase": 1, "ArrayExpression": "off" } ],
     "key-spacing": [ "error" ],
     "arrow-spacing": [ "error" ],
     "space-in-parens": [ "error" ],
