@@ -1,47 +1,24 @@
-import React, { useState, type ChangeEvent } from 'react'
+import { forwardRef } from 'react'
 
-interface Props {
-  label: string
-  id: string
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  type?: 'text' | 'number'
-  autofocus?: boolean
-  value?: string
-}
+import type { TextFieldProps, TextFieldRef } from './textField.types'
 
-const TextField = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
-  const [value, setValue] = useState<string>(props.value || '')
+import { useTextField } from './useTextField'
 
-  const onChangeHandle = (event: ChangeEvent<HTMLInputElement>) => {
-    switch (props.type) {
-      case 'number': {
-        const rawValue = event.target.value.replace(/[^\d]/g, '')
-        setValue((Number(rawValue)/100).toLocaleString('pt-br', {
-          currency: 'BRL',
-          minimumFractionDigits: 2, maximumFractionDigits: 2
-        }))
-        break
-      }
-      case 'text':
-      default: {
-        setValue(event.target.value)
-      }
-    }
-  }
+const TextField = forwardRef<TextFieldRef, TextFieldProps>((props, ref) => {
+  const { inputValue, handleChange, inputRef } = useTextField(ref)
 
   return (
     <div className='container-textfield'>
       <input
-        ref={ref}
+        ref={inputRef}
         type='text'
-        className='input'
+        className={`input ${props.className ?? ''}`}
         name={props.id}
         id={props.id}
-        value={value}
-        onChange={onChangeHandle}
+        value={inputValue}
+        onChange={handleChange}
         onKeyDown={props.onKeyDown}
         autoFocus={props.autofocus}
-        data-raw-value={props.type === 'number' ? value.replace(/[^\d]/g, '') : value}
       />
       <label className='label' htmlFor={props.id}>{props.label}</label>
     </div>
