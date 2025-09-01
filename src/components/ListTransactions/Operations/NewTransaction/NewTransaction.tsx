@@ -1,20 +1,20 @@
+import { CheckboxField, TextField, NumberField } from '../../../../components'
 import { EnterEvent } from '../../../../utils'
 import Modal from '../../../Modal'
-import { TextField } from '../../../TextField'
 
 import { useNewTransaction } from './useNewTransaction'
 
 export function NewTransaction() {
-  const { refs, submit, openForm, formOpened, closeForm } = useNewTransaction()
+  const { form } = useNewTransaction()
 
   return (
     <>
-      <button onClick={openForm}><i className='fa-solid fa-plus' /></button>
-      <Modal.Root opened={formOpened} closeModal={closeForm}>
+      <button onClick={form.open}><i className='fa-solid fa-plus' /></button>
+      <Modal.Root opened={form.opened} closeModal={form.close}>
         <Modal.Header>
           <div className='d-flex row justify-between items-center'>
             <Modal.Title value='Adicionar'/>
-            <button className='close-button' onClick={closeForm}><i className='fa-solid fa-times' /></button>
+            <button className='close-button' onClick={form.close}><i className='fa-solid fa-times' /></button>
           </div>
         </Modal.Header>
         <Modal.Content>
@@ -22,22 +22,21 @@ export function NewTransaction() {
             <TextField
               id='description'
               label='Descrição'
-              ref={refs.description}
-              onKeyDown={EnterEvent(submit)}
+              ref={form.fields.description}
+              onKeyDown={EnterEvent(form.submit)}
+              autofocus
+              className='mb-5'
             />
-            <TextField
-              id='value'
-              label='Valor'
-              ref={refs.value}
-              onKeyDown={EnterEvent(submit)}
-              type='number'
-            />
+            <div className='d-flex row gap-1s items-center mt-5'>
+              <NumberField id='value' label='Valor' ref={form.fields.value} />
+              <CheckboxField id='expense' label='Gasto' ref={form.fields.expense} />
+            </div>
           </div>
         </Modal.Content>
         <Modal.Footer>
           <div className='d-flex row justify-end'>
-            <Modal.Action action={closeForm} cancel>Cancelar</Modal.Action>
-            <Modal.Action action={submit}>Enviar</Modal.Action>
+            <Modal.Action action={form.close} cancel>Cancelar</Modal.Action>
+            <Modal.Action action={form.submit}>Enviar</Modal.Action>
           </div>
         </Modal.Footer>
       </Modal.Root>

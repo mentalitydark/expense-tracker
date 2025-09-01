@@ -1,4 +1,6 @@
+export * from './CheckboxField'
 export * from './ListTransactions'
 export * from './Modal'
+export * from './NumberField'
 export * from './Table'
 export * from './TextField'

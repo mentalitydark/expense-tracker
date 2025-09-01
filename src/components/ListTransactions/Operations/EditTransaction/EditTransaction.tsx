@@ -1,7 +1,8 @@
-import { EnterEvent } from "../../../../utils";
-import Modal from "../../../Modal";
-import { TextField } from "../../../TextField";
-import { useEditTransaction } from "./useEditTransaction";
+import { CheckboxField, TextField, NumberField } from '../../../../components'
+import { EnterEvent } from '../../../../utils'
+import Modal from '../../../Modal'
+
+import { useEditTransaction } from './useEditTransaction'
 
 export function EditTransaction() {
   const { form, enabled } = useEditTransaction()
@@ -23,14 +24,13 @@ export function EditTransaction() {
                 label='Descrição'
                 ref={form.fields.description}
                 onKeyDown={EnterEvent(form.submit)}
+                autofocus
+                className='mb-5'
               />
-              <TextField
-                id='value'
-                label='Valor'
-                ref={form.fields.value}
-                onKeyDown={EnterEvent(form.submit)}
-                type='number'
-              />
+              <div className='d-flex row gap-1s items-center mt-5'>
+                <NumberField id='value' label='Valor' ref={form.fields.value} className='mr-5' />
+                <CheckboxField id='expense' label='Gasto' ref={form.fields.expense} />
+              </div>
             </div>
           </Modal.Content>
           <Modal.Footer>

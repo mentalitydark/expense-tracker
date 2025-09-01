@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 
+import type { TextFieldRef, NumberFieldRef, CheckboxFieldRef } from '../../../../components'
+
 import { useFinancialTransactions, useOpen } from '../../../../hooks'
 import { FinancialTransaction } from '../../../../models'
 
@@ -7,26 +9,24 @@ export function useNewTransaction() {
   const useFinancial = useFinancialTransactions()
   const { open, close, opened } = useOpen()
 
-  const refs = {
-    description: useRef<HTMLInputElement>(null),
-    value: useRef<HTMLInputElement>(null)
+  const fields = {
+    description: useRef<TextFieldRef>(null),
+    value: useRef<NumberFieldRef>(null),
+    expense: useRef<CheckboxFieldRef>(null)
   }
 
   const submit = async () => {
-    if (!refs.description.current || !refs.value.current) {
+    if (!fields.description.current || !fields.value.current || !fields.expense.current) {
       return
     }
 
     try {
       const transaction = new FinancialTransaction({
-        description: refs.description.current.value,
-        value: Number(refs.value.current.dataset.rawValue)/100
+        description: fields.description.current.getValue(),
+        value: fields.value.current.getValue() * (fields.expense.current.getChecked() ? -1 : 1),
       })
 
       await useFinancial.addTransaction(transaction)
-
-      refs.description.current.value = ''
-      refs.value.current.value = ''
 
       close()
     } catch (e) {
@@ -35,10 +35,12 @@ export function useNewTransaction() {
   }
 
   return {
-    refs,
-    submit,
-    openForm: open,
-    closeForm: close,
-    formOpened: opened
+    form: {
+      open,
+      close,
+      opened,
+      submit,
+      fields
+    }
   }
 }
