@@ -1,6 +1,8 @@
-import { EnterEvent } from "../../../../utils";
-import Modal from "../../../Modal";
-import { useEditTransaction } from "./useEditTransaction";
+import { CheckboxField, TextField, NumberField } from '../../../../components'
+import { EnterEvent } from '../../../../utils'
+import Modal from '../../../Modal'
+
+import { useEditTransaction } from './useEditTransaction'
 
 export function EditTransaction() {
   const { form, enabled } = useEditTransaction()
@@ -17,29 +19,17 @@ export function EditTransaction() {
           </Modal.Header>
           <Modal.Content>
             <div className='d-flex column'>
-              <div className='input-container'>
-                <label htmlFor="description">Descrição</label>
-                <input
-                  id='description'
-                  name='description'
-                  ref={form.fields.description}
-                  type='text'
-                  onKeyDown={EnterEvent(form.submit)}
-                  className='mb-3'
-                  autoComplete='off'
-                  autoFocus
-                />
-              </div>
-              <div className='input-container'>
-                <label htmlFor="value">Valor</label>
-                <input
-                  id='value'
-                  name='value'
-                  ref={form.fields.value}
-                  type='number'
-                  onKeyDown={EnterEvent(form.submit)}
-                  autoComplete='off'
-                />
+              <TextField
+                id='description'
+                label='Descrição'
+                ref={form.fields.description}
+                onKeyDown={EnterEvent(form.submit)}
+                autofocus
+                className='mb-5'
+              />
+              <div className='d-flex row gap-1s items-center mt-5'>
+                <NumberField id='value' label='Valor' ref={form.fields.value} className='mr-5' />
+                <CheckboxField id='expense' label='Gasto' ref={form.fields.expense} />
               </div>
             </div>
           </Modal.Content>

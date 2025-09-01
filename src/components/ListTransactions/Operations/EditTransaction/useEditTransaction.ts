@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 
+import type { TextFieldRef, NumberFieldRef, CheckboxFieldRef } from '../../../../components'
+
 import { useFinancialTransactions, useOpen, useSelectTransactions } from '../../../../hooks'
 
 export function useEditTransaction() {
@@ -8,8 +10,9 @@ export function useEditTransaction() {
   const _useOpen = useOpen()
 
   const fields = {
-    description: useRef<HTMLInputElement>(null),
-    value: useRef<HTMLInputElement>(null)
+    description: useRef<TextFieldRef>(null),
+    value: useRef<NumberFieldRef>(null),
+    expense: useRef<CheckboxFieldRef>(null)
   }
 
   const enabled = useSelected.values.length === 1
@@ -20,7 +23,7 @@ export function useEditTransaction() {
         return
       }
   
-      if (!fields.description.current || !fields.value.current) {
+      if (!fields.description.current || !fields.value.current || !fields.expense.current) {
         return
       }
   
@@ -29,13 +32,10 @@ export function useEditTransaction() {
         return
       }
   
-      transaction.description = fields.description.current.value
-      transaction.value = Number(fields.value.current.value)
+      transaction.description = fields.description.current.getValue()
+      transaction.value = Number(fields.value.current.getValue()) * (fields.expense.current.getChecked() ? -1 : 1)
   
       await useFinancial.updateTransaction(transaction)
-  
-      fields.description.current.value = ''
-      fields.value.current.value = ''
   
       _useOpen.close()
     } catch (e) {
@@ -53,8 +53,9 @@ export function useEditTransaction() {
       return
     }
 
-    if (fields.description.current) fields.description.current.value = transaction.description
-    if (fields.value.current) fields.value.current.value = String(transaction.value)
+    if (fields.description.current) fields.description.current.setValue(transaction.description)
+    if (fields.value.current) fields.value.current.setValue(Math.abs(transaction.value))
+    if (fields.expense.current) fields.expense.current.setChecked(transaction.value < 0)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_useOpen.opened, enabled])
 

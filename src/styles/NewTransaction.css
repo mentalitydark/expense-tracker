@@ -12,38 +12,3 @@
   border-radius: 5px;
   transition: all 0.2s;
 }
-
-.modal .input-container {
-  display: flex;
-  flex-direction: column;
-  row-gap: 3px;
-  margin-bottom: 10px;
-}
-
-.modal .input-container label {
-  font-size: 1.1em;
-  color: var(--color);
-}
-
-.modal .input-container input {
-  font-size: 1em;
-  outline: none;
-  padding: 5px 10px;
-  border: 1px solid #38383844;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.modal .input-container input:focus {
-  background-color: var(--background);
-  outline: none;
-  border: 1px solid #38383844;
-}
-
-
-.modal .input-container input[type="number"]::-webkit-outer-spin-button,
-.modal .input-container input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  -moz-appearance: textfield;
-}
