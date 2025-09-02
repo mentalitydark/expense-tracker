@@ -17,6 +17,7 @@ const NumberField = forwardRef<NumberFieldRef, NumberFieldProps>((props, ref) =>
         onChange={handleChange}
         inputMode='decimal'
         autoComplete='off'
+        onKeyDown={props.onKeyDown}
       />
       <label className='label' htmlFor={props.id}>{props.label}</label>
     </div>
