@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-import type { TextFieldRef, NumberFieldRef, CheckboxFieldRef } from '../../../../components'
+import type { TextFieldRef, NumberFieldRef, CheckboxFieldRef, DateFieldRef } from '../../../../components'
 
 import { useFinancialTransactions, useOpen, useSelectTransactions } from '../../../../hooks'
 
@@ -12,7 +12,8 @@ export function useEditTransaction() {
   const fields = {
     description: useRef<TextFieldRef>(null),
     value: useRef<NumberFieldRef>(null),
-    expense: useRef<CheckboxFieldRef>(null)
+    expense: useRef<CheckboxFieldRef>(null),
+    date: useRef<DateFieldRef>(null),
   }
 
   const enabled = useSelected.values.length === 1
@@ -23,7 +24,7 @@ export function useEditTransaction() {
         return
       }
   
-      if (!fields.description.current || !fields.value.current || !fields.expense.current) {
+      if (!fields.description.current || !fields.value.current || !fields.expense.current || !fields.date.current) {
         return
       }
   
@@ -34,6 +35,7 @@ export function useEditTransaction() {
   
       transaction.description = fields.description.current.getValue()
       transaction.value = Number(fields.value.current.getValue()) * (fields.expense.current.getChecked() ? -1 : 1)
+      transaction.date = fields.date.current.getDate()
   
       await useFinancial.updateTransaction(transaction)
   
@@ -56,6 +58,7 @@ export function useEditTransaction() {
     if (fields.description.current) fields.description.current.setValue(transaction.description)
     if (fields.value.current) fields.value.current.setValue(Math.abs(transaction.value))
     if (fields.expense.current) fields.expense.current.setChecked(transaction.value < 0)
+    if (fields.date.current) fields.date.current.setDate(transaction.date)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_useOpen.opened, enabled])
 

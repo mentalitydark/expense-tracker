@@ -1,10 +1,10 @@
-.container-textfield {
+.container-textfield, .container-datefield {
   display: flex;
-  flex-direction: column;
   position: relative;
   box-sizing: border-box;
 }
 
+.container-datefield .label,
 .container-textfield .label {
   position: absolute;
   top: 0px;
@@ -17,26 +17,32 @@
   user-select: none;
 }
 
+.container-datefield .input,
 .container-textfield .input {
   padding: 10px;
   border-radius: 4px;
   border: 1px solid var(--background-dark);
   outline: none;
+  flex: 1;
 }
 
+.container-datefield .input:hover,
 .container-textfield .input:hover {
   border: 2px solid var(--background-dark);
 }
 
+.container-datefield .input:focus,
 .container-textfield .input:focus {
   border: 2px solid var(--primary);
 }
 
+.container-datefield .input:focus ~ .label,
 .container-textfield .input:focus ~ .label {
   transform: translate(0px, -5px) scale(.8);
   color: var(--primary);
 }
 
+.container-datefield .input:not([value=""]) ~ .label,
 .container-textfield .input:not([value=""]) ~ .label {
   transform: translate(0px, -5px) scale(.8);
 }

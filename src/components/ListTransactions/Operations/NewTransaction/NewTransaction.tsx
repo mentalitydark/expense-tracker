@@ -1,4 +1,4 @@
-import { CheckboxField, TextField, NumberField } from '../../../../components'
+import { CheckboxField, TextField, NumberField, DateField } from '../../../../components'
 import { EnterEvent } from '../../../../utils'
 import Modal from '../../../Modal'
 
@@ -18,7 +18,7 @@ export function NewTransaction() {
           </div>
         </Modal.Header>
         <Modal.Content>
-          <div className='d-flex column'>
+          <div className='column'>
             <TextField
               id='description'
               label='Descrição'
@@ -27,9 +27,12 @@ export function NewTransaction() {
               autofocus
               className='mb-5'
             />
-            <div className='d-flex row gap-1s items-center mt-5'>
-              <NumberField id='value' label='Valor' ref={form.fields.value} />
+            <div className='row gap-1s items-center mt-5 mb-5'>
+              <NumberField id='value' label='Valor' ref={form.fields.value} onKeyDown={EnterEvent(form.submit)} />
               <CheckboxField id='expense' label='Gasto' ref={form.fields.expense} />
+            </div>
+            <div className='mt-5'>
+              <DateField id='date' label='Data' ref={form.fields.date} onKeyDown={EnterEvent(form.submit)} />
             </div>
           </div>
         </Modal.Content>
